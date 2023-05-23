@@ -26,7 +26,8 @@ export default class SettingsService extends BaseService {
                 }
             })
             const { fields } = await response.json()
-            return fields
+            if ( fields?.length > 0 ) return fields
+            return []
         } catch(error) {
             console.log(error)
             return error

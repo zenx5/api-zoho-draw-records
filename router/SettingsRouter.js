@@ -2,11 +2,11 @@ import Express from "express";
 import { getFields, getModules } from "../controller/SettingsController.js";
 import { authMiddleware, tokenMiddleware } from "../middleware/index.js";
 
-const routerSettings = Express.Router()
+const settingsRouter = Express.Router()
 
-routerSettings.get('/modules', authMiddleware(tokenMiddleware(getModules)) )
-routerSettings.get('/fields', authMiddleware(tokenMiddleware(getFields)) )
+settingsRouter.get('/modules', authMiddleware(tokenMiddleware(getModules)) )
+settingsRouter.get('/fields', authMiddleware(tokenMiddleware(getFields)) )
 
 export {
-    routerSettings
+    settingsRouter
 }

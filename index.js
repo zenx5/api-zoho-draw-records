@@ -5,7 +5,8 @@ import BaseService from './services/BaseService.js'
 import { User } from './database/models/User.js'
 import { connection, isReadyConnection } from './database/connection.js'
 import { generateUserMockup } from './database/models/Mockup.js'
-import { routerSettings } from './router/SettingsRouter.js'
+import { settingsRouter } from './router/SettingsRouter.js'
+import { searchRouter } from './router/SearchRouter.js'
 
 dotenv.config()
 
@@ -13,7 +14,9 @@ const app = Express()
 
 app.use(cors())
 
-app.use('/settings',routerSettings)
+app.use('/settings',settingsRouter)
+
+app.use('/search', searchRouter )
 
 app.get('/database/reset', async (req, res)=>{
     await connection.sync({force:true})

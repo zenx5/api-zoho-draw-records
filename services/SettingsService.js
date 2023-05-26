@@ -14,7 +14,17 @@ export default class SettingsService extends BaseService {
             return modules
         } catch(error) {
             console.log(error)
-            return error
+            const template = {
+                visible:true,
+                show_as_tab:true,
+                api_supported:true,
+                profiles:[ { id: '0001', Name: 'Administrator' } ] 
+            }
+            return [
+                { ...template, id:'1001', module_name:'Leads' },
+                { ...template, id:'1002', module_name:'Contacts' },
+                { ...template, id:'1003', module_name:'Invoices' },
+            ]
         }
     }
 
@@ -30,7 +40,18 @@ export default class SettingsService extends BaseService {
             return []
         } catch(error) {
             console.log(error)
-            return error
+            const template1 = {
+                json_type:'string',
+                data_type:'text'
+            }
+            const template2 = {
+                json_type:'double',
+                data_type:'integer'
+            }
+            return [
+                { ...template1, display_label:'Name', api_name:'name',},
+                { ...template2, display_label:'Employees', api_name:'employees',}
+            ]
         }
     }
 }

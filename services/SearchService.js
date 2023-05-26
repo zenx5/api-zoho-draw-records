@@ -21,7 +21,7 @@ export default class SearchService extends BaseService {
             return [];
         } catch(error) {
             console.log(error)
-            return error
+            return []
         }
     }
 

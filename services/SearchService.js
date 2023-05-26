@@ -6,22 +6,25 @@ export default class SearchService extends BaseService {
 
     static async vsquery( access_token, entity, field, vsField) {
         try{
-            console.log( `select id, ${field}, ${vsField} from ${entity} where ${field} is not null` )
+            const sql = field==='drawing_count_records' ? 
+                `select ${vsField} from ${entity} where ${vsField} is not null` : 
+                `select id, ${field}, ${vsField} from ${entity} where ${field} is not null` 
+            console.log( sql )
             const response = await fetch(`${process.env.API_URL}/coql`, {
                 method:'post',
                 headers:{
                     Authorization: `Zoho-oauthtoken ${access_token}`
                 },
                 body: JSON.stringify({
-                    select_query : `select id, ${field}, ${vsField} from ${entity} where ${field} is not null`
+                    select_query : sql
                 })
             })
-            const { data } = await response.json()
-            if( data ) return data
+            const { data, info } = await response.json()
+            if( data ) return { data, info }
             return [];
         } catch(error) {
             console.log(error)
-            return []
+            return {data:[], info:{count:0}}
         }
     }
 
